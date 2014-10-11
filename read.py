@@ -21,6 +21,7 @@ except Exception:
     pass
 
 # Get Page to display
+url = ""
 try:
     url = int(query_params['url'])
 except Exception:
@@ -32,6 +33,12 @@ parser_url = "https://readability.com"
 parser_path = "/api/content/v1/parser"
 query_url = "?url="
 query_token = "&token="
-request_url = "{}{}{}{}{}{}".format(parser_url, parser_path, query_url, url, query_token, config.get_api_key)
+request_url = "{}{}{}{}{}{}".format(parser_url,
+        parser_path,
+        query_url,
+        url,
+        query_token,
+        config.get_api_key())
+print request_url
 contents = urllib2.urlopen(request_url).read()
 print json.dumps(contents)
