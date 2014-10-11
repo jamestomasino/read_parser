@@ -39,6 +39,5 @@ request_url = "{}{}{}{}{}{}".format(parser_url,
         url,
         query_token,
         config.get_api_key())
-print request_url
 contents = urllib2.urlopen(request_url).read()
 print json.dumps(contents)
