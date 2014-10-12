@@ -18,7 +18,7 @@ try:
     parsed = urlparse.urlparse(url+uri)
     url = urlparse.parse_qs(parsed.query)['url'][0]
 except Exception:
-    url = "https://read.tomasino.org/index.html"
+    url = "http://read.tomasino.org/index.html"
     pass
 
 # Load API info
@@ -29,5 +29,14 @@ request_url = "{}{}{}{}".format(parser_url,
         url,
         query_token,
         config.get_api_key())
-contents = urllib2.urlopen(request_url).read()
+try:
+    contents = urllib2.urlopen(request_url).read()
+except Exception:
+    url = "http://read.tomasino.org/index.html"
+    request_url = "{}{}{}{}".format(parser_url,
+            url,
+            query_token,
+            config.get_api_key())
+    contents = urllib2.urlopen(request_url).read()
+
 print contents
