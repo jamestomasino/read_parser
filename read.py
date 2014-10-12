@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 
 from config import Config
-import urllib2
+import urllib
 import os
 import urlparse
 try:
@@ -30,13 +30,13 @@ request_url = "{}{}{}{}".format(parser_url,
         query_token,
         config.get_api_key())
 try:
-    contents = urllib2.urlopen(request_url).read()
+    contents = urllib.urlopen(request_url).read()
 except Exception:
     url = "http://raw.githubusercontent.com/jamestomasino/read_parser/master/ERROR"
     request_url = "{}{}{}{}".format(parser_url,
             url,
             query_token,
             config.get_api_key())
-    contents = urllib2.urlopen(request_url).read()
+    contents = urllib.urlopen(request_url).read()
 
 print contents
