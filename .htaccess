@@ -1,0 +1,10 @@
+Options +ExecCGI
+AddHandler cgi-script .py
+<Files ./config.txt>
+Order Allow,Deny
+Deny from all
+</Files>
+<Files ./web.db>
+Order Allow,Deny
+Deny from all
+</Files>
