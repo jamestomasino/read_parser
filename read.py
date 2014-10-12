@@ -21,9 +21,9 @@ except Exception:
     pass
 
 # Get Page to display
-url = ""
+url = "http://read.tomasino.org/index.html"
 try:
-    url = int(query_params['url'])
+    url = query_params['url']
 except Exception:
     pass
 
