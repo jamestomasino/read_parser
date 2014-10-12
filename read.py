@@ -1,43 +1,33 @@
 #!/usr/bin/env python
 
 from config import Config
-import os
 import urllib2
-
+import os
+import urlparse
 try:
     import json
 except:
     import simplejson as json
 
 print "Content-type: application/json\n"
+#print "Content-type: text/html\n"
 
-# Get Query Parameters
 try:
-    query_string = os.getenv("QUERY_STRING")
-    query_pairs = query_string.strip().split('&')
-    for p in query_pairs:
-        query_params[p.split('=')[0]] = p.split('=')[1]
+    url = os.environ['HTTP_HOST']
+    uri = os.environ['REQUEST_URI']
+    parsed = urlparse.urlparse(url+uri)
+    url = urlparse.parse_qs(parsed.query)['url'][0]
 except Exception:
-    pass
-
-# Get Page to display
-url = "http://read.tomasino.org/index.html"
-try:
-    url = query_params['url']
-except Exception:
+    url = "https://read.tomasino.org/index.html"
     pass
 
 # Load API info
 config = Config()
-parser_url = "https://readability.com"
-parser_path = "/api/content/v1/parser"
-query_url = "?url="
+parser_url = "http://readability.com/api/content/v1/parser?url="
 query_token = "&token="
-request_url = "{}{}{}{}{}{}".format(parser_url,
-        parser_path,
-        query_url,
+request_url = "{}{}{}{}".format(parser_url,
         url,
         query_token,
         config.get_api_key())
 contents = urllib2.urlopen(request_url).read()
-print json.dumps(contents)
+print contents
